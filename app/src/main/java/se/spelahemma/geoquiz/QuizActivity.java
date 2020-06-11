@@ -2,15 +2,19 @@ package se.spelahemma.geoquiz;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EdgeEffect;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class QuizActivity extends AppCompatActivity {
 
+    public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
     private ImageButton mPreviousButton;
     private Button mTrueButton;
     private Button mFalseButton;
@@ -50,6 +54,14 @@ public class QuizActivity extends AppCompatActivity {
         updateQuestion();
     }
 
+    public void sendMessage(View view, String message){
+        Intent intent = new Intent(this, DisplayMessageActivity.class);
+        //String message = "True";
+        intent.putExtra(EXTRA_MESSAGE, message);
+        startActivity(intent);
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +78,7 @@ public class QuizActivity extends AppCompatActivity {
         mTrueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                sendMessage(v, "True");
                 checkAnswer(true);
             }
         });
@@ -73,6 +86,7 @@ public class QuizActivity extends AppCompatActivity {
         mFalseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                sendMessage(v, "False");
                 checkAnswer(false);
             }
         });
